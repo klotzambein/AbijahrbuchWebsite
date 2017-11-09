@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Abijahrbuch 2018</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="open-iconic/css/open-iconic-bootstrap.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="narrow-jumbotron.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills float-right">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Start</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Preise</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Kontakt</a>
+          </li>
+        </ul>
+      </nav>
+      <h3 class="text-muted">Abijahrbuch 2018</h3>
+    </div>
+    <div class="modal fade" id="changeName" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modalLabel">Namen ändern</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              Um deinen Namen zu ändern schicke bitte entweder eine Email an
+              <a href="mailto:robin@kock-hamburg.de">robin@kock-hamburg.de</a> oder spreche uns einfach an.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="img-wrapper">
+          <img class="col-md-12" src="img\avatar.png" />
+          <div class="img-overlay">
+            <button class="btn btn-sm pull-right">
+              <span class="oi oi-pencil"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <form class="col-md-8">
+        <h2>
+          <span>Robin Kock</span>
+          <button style="margin-left: 3em; margin-bottom: 0.5em;" type="button" class="btn btn-sm pull-right" data-toggle="modal" data-target="#changeName">
+            <span class="oi oi-pencil"></span>
+          </button>
+        </h2>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="text" class="form-control datepicker" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input"> Check me out
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+    <div class="row marketing">
+      <form class="col-lg-6">
+        <h4>Subheading</h4>
+        <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+      </form>
+      <div class="col-lg-6">
+        <h4>Subheading</h4>
+        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; Robin Kock 2017</p>
+    </footer>
+
+  </div>
+  <!-- /container -->
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    $(function () {
+      $(".datepicker").datepicker();
+    });
+  </script>
+</body>
+
+</html>
