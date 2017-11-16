@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+  Solltest du irgendwelche beschwerden wegen der schlampiegen programmierung haben richte dich bitte an idontcare@trashmail.com
+-->
 
 <head>
   <meta charset="utf-8">
@@ -24,23 +27,20 @@
       <nav>
         <ul class="nav nav-pills float-right">
           <li class="nav-item">
-            <a class="nav-link active" href="#">Start</a>
+            <a class="nav-link active" href="signout">Logout</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Preise</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Kontakt</a>
+            <a class="nav-link" href="mailto:robin@kock-hamburg.de">Kontakt</a>
           </li>
         </ul>
       </nav>
       <h3 class="text-muted">Abijahrbuch 2018</h3>
     </div>
-    <div class="modal fade" id="changeName" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal fade" id="changeName" tabindex="-1" role="dialog" aria-labelledby="changeNameLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="modalLabel">Namen ändern</h4>
+            <h4 class="modal-title" id="changeNameLabel">Namen ändern</h4>
           </div>
           <div class="modal-body">
             <p>
@@ -51,55 +51,71 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="uploadPhoto" tabindex="-1" role="dialog" aria-labelledby="uploadPhotoLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="uploadPhotoLabel">Namen ändern</h4>
+          </div>
+          <div class="modal-body">
+            <form id="imgSelect" action="upload" method="POST">
+              <p>
+                Clicke auf auswählen um ein Bild hoch zu laden.
+              </p>
+              <label class="btn btn-primary">
+                Auswählen
+                <input type="file" name="img" accept="image/*" hidden onchange="$('#imgSelect')[0].submit();">
+              </label>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-4">
         <div class="img-wrapper">
           <img class="col-md-12" src="img\avatar.png" />
           <div class="img-overlay">
-            <button class="btn btn-sm pull-right">
+            <button class="btn btn-sm pull-right" data-toggle="modal" data-target="#uploadPhoto">
               <span class="oi oi-pencil"></span>
             </button>
           </div>
         </div>
       </div>
-      <form class="col-md-8">
-        <h2>
+      <form class="col-md-8" action="index" method="GET">
+        <h1>
           <span>Robin Kock</span>
           <button style="margin-left: 3em; margin-bottom: 0.5em;" type="button" class="btn btn-sm pull-right" data-toggle="modal" data-target="#changeName">
             <span class="oi oi-pencil"></span>
           </button>
-        </h2>
+        </h1>
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="max@musterman.de" name="email">
           <small id="emailHelp" class="form-text text-muted">Sollte es Fragen oder Änderungen geben schreiben wir dieser E-mail Adresse. Wichtige Infos kommen aber auch in
             den Abi-Chat.</small>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Geburtstag</label>
-          <input type="text" class="form-control" id="datepicker">
-        </div>
-        <div class="form-check">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" /> Check me out
-          </label>
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" /> Check me out
-          </label>
+          <input type="text" class="form-control" id="datepicker" required="true" name="date" placeholder="20-04-1968">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
-
+    <hr>
+    <h2>Fragen:</h2>
+    <p>
+      Du sollst fragen über dich beantworten. Fülle einfach so viele aus wie du willst. Bitte nach jeder frage auf Submit clicken.
+    </p>
     <div class="row marketing">
       <form class="col-lg-6">
-        <h4>Subheading</h4>
-        <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+        <h5>Spitzname</h5>
+        <input type="hidden" name="question" value="spitzname">
+        <textarea class="form-control" rows="1" name="answer"></textarea>
+        <div class="text-center" style="margin-top:0.5em;">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
       </form>
-      <div class="col-lg-6">
-        <h4>Subheading</h4>
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-      </div>
     </div>
 
     <footer class="footer">
@@ -118,11 +134,25 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="src/pikaday.js"></script>
   <script>
-    var picker = new Pikaday({ field: $('#datepicker')[0] });
-  </script>
-  <script>
-    $(function () {
-      $(".datepicker").datepicker();
+    var picker = new Pikaday({
+      field: $('#datepicker')[0],
+      format: 'D-M-YYYY',
+      toString(date, format) {
+        // you should do formatting based on the passed format,
+        // but we will just return 'D/M/YYYY' for simplicity
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+      },
+      parse(dateString, format) {
+        // dateString is the result of `toString` method
+        const parts = dateString.split('-');
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1] - 1, 10);
+        const year = parseInt(parts[1], 10);
+        return new Date(year, month, day);
+      }
     });
   </script>
 </body>
