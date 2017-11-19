@@ -1,3 +1,27 @@
+<?php
+include "util.php";
+
+$id = checkPW($mysqli, $_COOKIE["login_token"]);
+
+$error = NULL;
+if (isset($_GET["error"]))
+  $error = $_GET["error"];
+
+if (isset($_GET["question"]) && isset($_GET["answer"])) {
+  $q = intval($_GET["question"]);
+  if ($q==0)
+    $error = "Fehler beim Antworten der Frage :(";
+  else {
+    $a = $mysqli->real_escape_string($_GET["answer"]);
+    if (!$mysqli->query("INSERT INTO `Antworten` (`Antwort`, `Frage_ID`, `Schueler_ID`) VALUES ('$a', '$q', '$id');"))
+      $error = "Fehler beim einfügen in die Datenbank";
+  }
+
+  header("Location: http://abibuch.osscarcvo.de/index.php" . ($error == NULL ? "" : "?error=" . urlencode($error)), true, 303);
+}
+ 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <!--
@@ -27,7 +51,7 @@
       <nav>
         <ul class="nav nav-pills float-right">
           <li class="nav-item">
-            <a class="nav-link active" href="signout">Logout</a>
+            <a class="nav-link active" href="signout.php">Logout</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="mailto:robin@kock-hamburg.de">Kontakt</a>
@@ -36,6 +60,10 @@
       </nav>
       <h3 class="text-muted">Abijahrbuch 2018</h3>
     </div>
+<?php 
+if ($error != NULL)
+  echo '<div class="alert alert-danger">'.$error.'</div>';
+?>
     <div class="modal fade" id="changeName" tabindex="-1" role="dialog" aria-labelledby="changeNameLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -55,7 +83,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="uploadPhotoLabel">Namen ändern</h4>
+            <h4 class="modal-title" id="uploadPhotoLabel">Photo Hochladen</h4>
           </div>
           <div class="modal-body">
             <form id="imgSelect" action="upload" method="POST">
@@ -84,7 +112,7 @@
       </div>
       <form class="col-md-8" action="index" method="GET">
         <h1>
-          <span>Robin Kock</span>
+          <span><?php echo $mysqli->query("SELECT Name from Schueler WHERE Schueler.ID=$id")->fetch_assoc()["Name"]; ?></span>
           <button style="margin-left: 3em; margin-bottom: 0.5em;" type="button" class="btn btn-sm pull-right" data-toggle="modal" data-target="#changeName">
             <span class="oi oi-pencil"></span>
           </button>
@@ -99,25 +127,30 @@
           <label for="exampleInputPassword1">Geburtstag</label>
           <input type="text" class="form-control" id="datepicker" required="true" name="date" placeholder="20-04-1968">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Ok</button>
       </form>
     </div>
     <hr>
     <h2>Fragen:</h2>
     <p>
-      Du sollst fragen über dich beantworten. Fülle einfach so viele aus wie du willst. Bitte nach jeder frage auf Submit clicken.
+      Du sollst fragen über dich beantworten. Fülle einfach so viele aus wie du willst. Bitte nach jeder frage auf Ok clicken.
     </p>
     <div class="row marketing">
+<?php 
+$result = $mysqli->query("SELECT Fragen.Frage AS Frage, Fragen.ID AS ID, aw.AW AS Antwort FROM Fragen LEFT JOIN ( SELECT Antworten.Frage_ID AS F_ID, Antworten.Antwort AS AW FROM Antworten INNER JOIN ( SELECT Frage_ID, MAX(ErstellungsZeit) AS maxTime FROM Antworten GROUP BY Frage_ID ) ms ON Antworten.Frage_ID = ms.Frage_ID AND Antworten.ErstellungsZeit = maxTime WHERE Antworten.Schueler_ID = $id) aw ON aw.F_ID = Fragen.ID");
+while($array = $result->fetch_assoc()) { ?>
       <form class="col-lg-6">
-        <h5>Spitzname</h5>
-        <input type="hidden" name="question" value="spitzname">
-        <textarea class="form-control" rows="1" name="answer"></textarea>
+        <h5><?php echo $array["Frage"]; ?></h5>
+        <input type="hidden" name="question" value="<?php echo $array["ID"]; ?>">
+        <textarea class="form-control" rows="1" name="answer"><?php if($array["Antwort"] != NULL) echo $array["Antwort"]; ?></textarea>
         <div class="text-center" style="margin-top:0.5em;">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Ok</button>
         </div>
       </form>
+<?php 
+}
+?>
     </div>
-
     <footer class="footer">
       <p>&copy; Robin Kock 2017</p>
     </footer>
