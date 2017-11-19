@@ -104,7 +104,7 @@ if ($error != NULL)
         <div class="img-wrapper">
           <img class="col-md-12" src="img\avatar.png" />
           <div class="img-overlay">
-            <button class="btn btn-sm pull-right" data-toggle="modal" data-target="#uploadPhoto">
+            <button class="btn btn-lg" data-toggle="modal" data-target="#uploadPhoto">
               <span class="oi oi-pencil"></span>
             </button>
           </div>
@@ -124,16 +124,20 @@ if ($error != NULL)
             den Abi-Chat.</small>
         </div>
         <div class="form-group">
+          <label for="profil">Profil</label>
+          <input type="text" class="form-control" id="profil" aria-describedby="emailHelp" disabled value="<?php echo $mysqli->query("SELECT Profil from Schueler WHERE Schueler.ID=$id")->fetch_assoc()["Profil"]; ?>">
+        </div>
+        <div class="form-group">
           <label for="exampleInputPassword1">Geburtstag</label>
           <input type="text" class="form-control" id="datepicker" required="true" name="date" placeholder="20-04-1968">
         </div>
-        <button type="submit" class="btn btn-primary">Ok</button>
+        <button type="submit" class="btn btn-primary">Speichern</button>
       </form>
     </div>
     <hr>
     <h2>Fragen:</h2>
     <p>
-      Du sollst fragen über dich beantworten. Fülle einfach so viele aus wie du willst. Bitte nach jeder frage auf Ok clicken.
+      Du sollst fragen über dich beantworten. Fülle einfach so viele aus wie du willst. Bitte nach jeder frage auf Speichern clicken.
     </p>
     <div class="row marketing">
 <?php 
@@ -144,7 +148,7 @@ while($array = $result->fetch_assoc()) { ?>
         <input type="hidden" name="question" value="<?php echo $array["ID"]; ?>">
         <textarea class="form-control" rows="1" name="answer"><?php if($array["Antwort"] != NULL) echo $array["Antwort"]; ?></textarea>
         <div class="text-center" style="margin-top:0.5em;">
-          <button type="submit" class="btn btn-primary">Ok</button>
+          <button type="submit" class="btn btn-primary">Speichern</button>
         </div>
       </form>
 <?php 
