@@ -19,7 +19,7 @@ if (isset($_GET["question"]) && isset($_GET["answer"])) {
 
   header("Location: http://abibuch.osscarcvo.de/index.php" . ($error == NULL ? "" : "?error=" . urlencode($error)), true, 303);
 }
- 
+
 ?>
 
 <!DOCTYPE html>
@@ -86,13 +86,13 @@ if ($error != NULL)
             <h4 class="modal-title" id="uploadPhotoLabel">Photo Hochladen</h4>
           </div>
           <div class="modal-body">
-            <form id="imgSelect" action="upload" method="POST">
+            <form id="imgSelect" action="upload.php" method="POST" enctype="multipart/form-data">
               <p>
                 Clicke auf auswählen um ein Bild hoch zu laden.
               </p>
-              <label class="btn btn-primary">
+              <label class="btn btn-primary" id="uploadBtn">
                 Auswählen
-                <input type="file" name="img" accept="image/*" hidden onchange="$('#imgSelect')[0].submit();">
+                <input type="file" id="uploadInput" name="uploadInput" accept="image/*" hidden onchange="$('#uploadBtn').addClass('disabled'); $('#uploadInput').attr('disabled', 'disabled'); $('#imgSelect')[0].submit();">
               </label>
             </form>
           </div>
@@ -102,7 +102,7 @@ if ($error != NULL)
     <div class="row">
       <div class="col-md-4">
         <div class="img-wrapper">
-          <img class="col-md-12" src="img\avatar.png" />
+          <img class="col-md-12" src="<?php $imgPath = $mysqli->query("SELECT Bild FROM Schueler WHERE ID=$id")->fetch_assoc()["Bild"]; echo isset($imgPath) ? $imgPath : "img\avatar.png"; ?>" />
           <div class="img-overlay">
             <button class="btn btn-lg" data-toggle="modal" data-target="#uploadPhoto">
               <span class="oi oi-pencil"></span>
