@@ -19,6 +19,23 @@ if (isset($_GET["question"]) && isset($_GET["answer"])) {
 
   header("Location: http://abibuch.osscarcvo.de/index.php" . ($error == NULL ? "" : "?error=" . urlencode($error)), true, 303);
 }
+elseif (isset($_GET["email"]) || isset($_GET["date"])) {
+  if (isset($_GET["date"])) {
+    $date = strtotime($_GET["date"]);
+    if ($date){
+      if (!$mysqli->query("UPDATE Schueler SET Geburtstag=FROM_UNIXTIME($date) WHERE ID=$id"))
+        $error = "Fehler beim einfügen in die Datenbank";
+    }
+    else
+      $error = "Datum nicht valide.";
+  }
+  if (isset($_GET["email"])) {
+    $email = $mysqli->real_escape_string($_GET["email"]);
+    if (!$mysqli->query("UPDATE Schueler SET Email='$email' WHERE ID=$id"))
+      $error = "Fehler beim einfügen in die Datenbank";
+  }
+  header("Location: http://abibuch.osscarcvo.de/index.php" . ($error == NULL ? "" : "?error=" . urlencode($error)), true, 303);
+}
 
 ?>
 
@@ -46,7 +63,7 @@ if (isset($_GET["question"]) && isset($_GET["answer"])) {
 
 <body>
 
-  <div class="container">
+  <div id="page" class="container">
     <div class="header clearfix">
       <nav>
         <ul class="nav nav-pills float-right">
@@ -92,7 +109,7 @@ if ($error != NULL)
               </p>
               <label class="btn btn-primary" id="uploadBtn">
                 Auswählen
-                <input type="file" id="uploadInput" name="uploadInput" accept="image/*" hidden onchange="$('#uploadBtn').addClass('disabled'); $('#uploadInput').attr('disabled', 'disabled'); $('#imgSelect')[0].submit();">
+                <input type="file" id="uploadInput" name="uploadInput" accept="image/*" hidden onchange="$('#uploadPhoto').modal('toggle'); $('#imgSelect')[0].submit(); $('#uploadInput').attr('disabled', 'disabled'); $('#page').attr('hidden', 'hidden'); $('#loading').removeAttr('hidden');">
               </label>
             </form>
           </div>
@@ -110,30 +127,31 @@ if ($error != NULL)
           </div>
         </div>
       </div>
-      <form class="col-md-8" action="index" method="GET">
+      <?php $sch = $mysqli->query("SELECT Name, Profil, UNIX_TIMESTAMP(Geburtstag) AS Geb, Email from Schueler WHERE Schueler.ID=$id")->fetch_assoc(); ?>
+      <form class="col-md-8" action="index.php" method="GET">
         <h1>
-          <span><?php echo $mysqli->query("SELECT Name from Schueler WHERE Schueler.ID=$id")->fetch_assoc()["Name"]; ?></span>
+          <span><?php echo $sch["Name"]; ?></span>
           <button style="margin-left: 3em; margin-bottom: 0.5em;" type="button" class="btn btn-sm pull-right" data-toggle="modal" data-target="#changeName">
             <span class="oi oi-pencil"></span>
           </button>
         </h1>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="max@musterman.de" name="email">
+          <label for="exampleInputEmail">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="max@musterman.de" name="email" value="<?php echo $sch["Email"]; ?>">
           <small id="emailHelp" class="form-text text-muted">Sollte es Fragen oder Änderungen geben schreiben wir dieser E-mail Adresse. Wichtige Infos kommen aber auch in
             den Abi-Chat.</small>
         </div>
         <div class="form-group">
           <label for="profil">Profil</label>
-          <input type="text" class="form-control" id="profil" aria-describedby="emailHelp" disabled value="<?php echo $mysqli->query("SELECT Profil from Schueler WHERE Schueler.ID=$id")->fetch_assoc()["Profil"]; ?>">
+          <input type="text" class="form-control" id="profil" aria-describedby="emailHelp" disabled value="<?php echo $sch["Profil"]; ?>">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Geburtstag</label>
-          <input type="text" class="form-control" id="datepicker" required="true" name="date" placeholder="20-04-1968">
+          <input type="text" class="form-control" id="datepicker" required="true" name="date" placeholder="20-4-1968" value="<?php echo date("d-n-Y", $sch["Geb"]); ?>">
         </div>
         <button type="submit" class="btn btn-primary">Speichern</button>
       </form>
-    </div>
+    </div> 
     <hr>
     <h2>Fragen:</h2>
     <p>
@@ -143,12 +161,14 @@ if ($error != NULL)
 <?php 
 $result = $mysqli->query("SELECT Fragen.Frage AS Frage, Fragen.ID AS ID, aw.AW AS Antwort FROM Fragen LEFT JOIN ( SELECT Antworten.Frage_ID AS F_ID, Antworten.Antwort AS AW FROM Antworten INNER JOIN ( SELECT Frage_ID, MAX(ErstellungsZeit) AS maxTime FROM Antworten GROUP BY Frage_ID ) ms ON Antworten.Frage_ID = ms.Frage_ID AND Antworten.ErstellungsZeit = maxTime WHERE Antworten.Schueler_ID = $id) aw ON aw.F_ID = Fragen.ID");
 while($array = $result->fetch_assoc()) { ?>
-      <form class="col-lg-6">
+      <form class="col-lg-6" style="margin-bottom: 2em;">
         <h5><?php echo $array["Frage"]; ?></h5>
         <input type="hidden" name="question" value="<?php echo $array["ID"]; ?>">
-        <textarea class="form-control" rows="1" name="answer"><?php if($array["Antwort"] != NULL) echo $array["Antwort"]; ?></textarea>
-        <div class="text-center" style="margin-top:0.5em;">
-          <button type="submit" class="btn btn-primary">Speichern</button>
+        <div class="input-group">
+          <textarea class="col-md-8 form-control" rows="1" name="answer"><?php if($array["Antwort"] != NULL) echo $array["Antwort"]; ?></textarea>
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary">Speichern</button>
+          </span>
         </div>
       </form>
 <?php 
@@ -159,6 +179,14 @@ while($array = $result->fetch_assoc()) { ?>
       <p>&copy; Robin Kock 2017</p>
     </footer>
 
+  </div>
+  <div id="loading" class="container" hidden>
+    <div style="margin-top:5em;" class="row">
+      <h3 class="col-md-offset-4 col-md-4">Bild wird hochgeladen</h3>
+    </div>
+    <div class="row">
+      <button class="col-md-offset-5 col-md-2 btn btn-cancel" onclick="window.location.replace('http://abibuch.osscarcvo.de/index.php');">Abbrechen</button>
+    </div>
   </div>
   <!-- /container -->
 

@@ -1,9 +1,6 @@
 <?php
 include "util.php";
 
-var_dump($_FILES);
-die();
-
 $id = checkPW($mysqli, $_COOKIE["login_token"]);
 
 function redirect($loc) {
