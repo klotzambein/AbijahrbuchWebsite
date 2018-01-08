@@ -1,0 +1,55 @@
+## Kategorien:
+- Das Model
+- Der die Sportlichste
+- Der Musikalische
+- Der erste Harzter
+- Der erste Millionär
+- Erster Studienabbrecher
+- Bestes Lächeln
+- Dreamdate
+- Wer wohnt noch mit 30 bei Mutti
+- Wer wird zuerst heiraten
+- Wer wird später die meisten Kinder bekommen
+- Wer wird Pornostar
+- Wer wird maximal 30
+- Wer wird Frauenarzt
+- Wer wird die Weltherrschaft an sich reißen
+- Der Vertreter Nordkoreas
+- Wer lebt am lägsten
+- Wer weiß einfach alles
+- Wer denkt dass er alles weiß: Morten
+- Labertasche
+- Wer tritt in jedes Fettnäpfchen
+- Wer trägt seinen komplett eigenen Stil zur Schau
+- Wer schnorrt sich durchs Leben
+- Antisportskanone
+- Sportskanone
+- Wer könnte keiner Fliege was zu Leide tun
+- Workaholic
+- Schwiegermutterschreck
+- Die meisten Ehrenrunden
+- Dancing Queen/King
+- Dauerzuspätkommer: Martha, Juliana
+- Teilzeitschüler: Jakob
+- Mathefreak
+- Lehreralbtraum
+- Schlechtester Autofahrer
+- Größter Künstler
+- Kaffee Junky
+- Hektiker
+- Handyproll
+- Fußball Fan
+- American Football Fan
+- Anti-Alk
+- Pessimist
+- Optimist
+- Realist
+- Spielkind
+- Gossip Girl
+- Bierkönig
+- Die längste Leitung
+- Der nächste Bundeskanzler
+- Späterer Nobelpreisträger
+- Wen erkennt man in 25 Jahren noch wieder
+- Wem würden wir nie unser Auto leihen
+- 
