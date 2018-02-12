@@ -1,7 +1,6 @@
 ## Kategorien:
 - Das Model: Amelie Görling, Henrike, Isabelle Fra. 
-- Der die Sportlichste
-- Der/die Musikalische: Henry Sadl., Lennart B., Thoja,
+- Der/die Musikalische: Henry Sadl., Thoja,
 - Pferdefreunde: Anna P., Leonie, Lara,  
 - Der erste Millionär: Lasse L., 
 - Erster Studienabbrecher: Yama, Anton H.,
@@ -11,8 +10,8 @@
 - Der Geheimagent: Bastian Lilje, Luca-Marie
 - Wer wird zuerst heiraten: Viki, Alina Schm.,
 - Wer wird später die meisten Kinder bekommen
-- Wer wird Pornostar: Enjy, 
-- Wer wird maximal 30
+- Wer wird Pornostar:  
+- Wer wird maximal 30: 
 - Wer wird Frauenarzt: 
 - Wer wird die Weltherrschaft an sich reißen: Florin
 - Der Vertreter Nordkoreas: Sang-Min,
@@ -22,21 +21,21 @@
 - Labertasche: Liv, Joline
 - Wer tritt in jedes Fettnäpfchen
 - Wer trägt seinen komplett eigenen Stil: Anton Hof.,Joy, Moritz 
-- Wer schnorrt sich durchs Leben
-- Antisportskanone
-- Sportskanone: Kaja O.,
-- Wer könnte keiner Fliege was zu Leide tun:Neela, 
-- Workaholic: Giti, 
-- Schwiegermutterschreck
+- Wer schnorrt sich durchs Leben:, Lennart B.
+- Antisportskanone: Anton H., Luisa S., Layla,
+- Sportskanone: Kaja O., Marie K., Christopher K.
+- Wer könnte keiner Fliege was zu Leide tun:Neela, Felix R., 
+- Workaholic: Giti, Jomer, Cara, 
+- Schwiegermutterschreck: Till, Alessio, 
 - Die meisten Ehrenrunden: Leon N., Fabian F.,
 - Dancing Queen/King: Fine, Alina Schm., Josi S
 - Dauerzuspätkommer: Martha, Juliana, Benni, Malte H., 
 - Teilzeitschüler: Jakob, Tim Hansen
-- Mathefreak: Robin K., 
-- Lehreralbtraum
+- Mathefreak: Robin K., Paul D,
+- Lehreralbtraum: Robin R., 
 - Lehrerliebling: Elena, 
-- Schlechtester Autofahrer: Marie Kepler
-- Größter Künstler
+- Schlechtester Autofahrer: Marie Kepler, Frida B., 
+- Größter Künstler: 
 - Kaffee Junky
 - Hektiker
 - Handyproll: Gideon Franke, Alex R., 
